@@ -6,6 +6,8 @@ while(jogador1 !== 'X' && jogador1 !== 'O'){
     jogador1 = prompt('Jogador 1 : Escolha entre X e O').toUpperCase();
 }
 
+let ganhou = false;
+
 let jogador2 = 'X';
 if(jogador1 === 'X'){
     jogador2 = 'O';
@@ -16,10 +18,12 @@ let i = 1;
 function diagonal(){
     if(quadrados[0].innerHTML !== '.' && quadrados[0].innerHTML === quadrados[4].innerHTML && quadrados[4].innerHTML === quadrados[8].innerHTML){
         encerrar();
+        ganhou = true;
     }
     
     if(quadrados[6].innerHTML !== '.' && quadrados[6].innerHTML === quadrados[4].innerHTML && quadrados[4].innerHTML === quadrados[2].innerHTML){
         encerrar();
+        ganhou = true;
     }
 }
 
@@ -32,7 +36,9 @@ function encerrar(){
 }
 
 function jogada(){
-    
+    if(!ganhou && i === 9){
+        h1.innerHTML = 'VELHA !!';
+    }
     if(i % 2 === 0){
         this.innerHTML = jogador2;
     }
@@ -48,16 +54,17 @@ function verificarFim(){
     for(let j = 0; j < 9; j += 3){   
         if(quadrados[j].innerHTML !== '.' && quadrados[j].innerHTML === quadrados[j + 1].innerHTML && quadrados[j + 1].innerHTML === quadrados[j + 2].innerHTML){
             encerrar();
+            ganhou = true;
         }
     }
     for(let j = 0; j < 3; j += 1){   
         if(quadrados[j].innerHTML !== '.' && quadrados[j].innerHTML === quadrados[j + 3].innerHTML && quadrados[j + 3].innerHTML === quadrados[j + 6].innerHTML){
             encerrar();
+            ganhou = true;
         }
     }
     
-    diagonal();
-    
+    diagonal();    
 }
 
 for(let quadrado of quadrados){
